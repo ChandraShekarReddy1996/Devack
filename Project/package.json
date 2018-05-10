@@ -1,0 +1,25 @@
+{
+  "name": "Shareeye",
+  "version": "1.0.0",
+  "description": "TO track your devices",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChandraShekarReddy1996/Shareeye.git"
+  },
+  "keywords": [
+    "track"
+  ],
+  "author": "Chandra Shekar Reddy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChandraShekarReddy1996/Shareeye/issues"
+  },
+  "homepage": "https://github.com/ChandraShekarReddy1996/Shareeye#readme",
+  "dependencies": {
+    "yards": "^0.1.4"
+  }
+}
