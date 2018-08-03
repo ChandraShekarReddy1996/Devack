@@ -1,4 +1,4 @@
-var mongoose = require('/home/chandra/Desktop/jugnoo/Project/models/membermodels');
+var mongoose = require('../models/membermodels');
 
 //Read opearatins of the mongodb
 var find = (data,doc,callbck) => {
