@@ -1,7 +1,7 @@
 var express = require('express')
 var app = express();
 var bodyParser = require('body-parser');
-var ctr = require('/home/chandra/Desktop/jugnoo/Project/ctrls/controllers').members;
+var ctr = require('../controllers').members;
 var fileUpload = require('express-fileupload');
 var jsonParser = bodyParser.json();
 
