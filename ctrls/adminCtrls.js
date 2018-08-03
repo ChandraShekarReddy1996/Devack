@@ -1,4 +1,4 @@
-var dbService = require('/home/chandra/Desktop/jugnoo/Project/DB/mongoService')
+var dbService = require('../DB/mongoService')
 const jwt = require('jsonwebtoken')
 var adminkey =  'jshfiaohyfsoinqwlk23lj4g3u224d';
 
