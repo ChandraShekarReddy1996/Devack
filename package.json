@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/ChandraShekarReddy1996/Shareeye#readme",
   "dependencies": {
+    "express-fileupload": "^0.4.0",
+    "jsonwebtoken": "^8.3.0",
     "jwt-decode": "^2.2.0",
     "yards": "^0.1.4"
   }
