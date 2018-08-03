@@ -1,7 +1,7 @@
 var express = require('express')
 var app = express();
 var bodyParser = require('body-parser');
-var ctr = require('../controllers').members;
+var ctr = require('../ctrls/controllers').members;
 var fileUpload = require('express-fileupload');
 var jsonParser = bodyParser.json();
 

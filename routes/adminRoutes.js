@@ -1,6 +1,6 @@
 var express = require('express')
 var bodyParser = require('body-parser');
-var ctr = require('..ctrls/controllers').admin;
+var ctr = require('../ctrls/adminCtrls').admin;
 var fileUpload = require('express-fileupload');
 
 var app = express();
