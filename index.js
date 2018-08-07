@@ -23,7 +23,7 @@ var express = require('express')
 var bodyParser = require('body-parser');
 var ctr = require('./ctrls/adminCtrls').admin;
 var fileUpload = require('express-fileupload');
-
+var jsonParser = bodyParser.json();
 var app = express();
 
 app.post('/registerMember',jsonParser,(req,res) => {
