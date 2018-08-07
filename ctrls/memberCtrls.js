@@ -8,7 +8,7 @@ var memberLogin = (req,res) => {
     if(err)
     res.status(400).send({message : 'SOme Error Occured While processing the application' ,status : 400 ,data : []});
     else if(result[0] == null)
-    res.send(401).send({message : 'Username/Password is incorrect' ,status : 401 , data : []})
+    res.status(401).send({message : 'Username/Password is incorrect' ,status : 401 , data : []})
     else
     {
       console.log(result)
