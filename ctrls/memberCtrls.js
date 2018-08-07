@@ -7,7 +7,7 @@ var memberLogin = (req,res) => {
   dbService.find({EmpId : req.EmpId, password: req.password},'members',(err,result) => {
     if(err)
     res.status(400).send({message : 'SOme Error Occured While processing the application' ,status : 400 ,data : []});
-    else if(result == null)
+    else if(result[0] == null)
     res.send(401).send({message : 'Username/Password is incorrect' ,status : 401 , data : []})
     else
     {
