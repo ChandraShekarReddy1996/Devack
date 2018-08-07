@@ -130,7 +130,7 @@ var sendRequest = (req,res) => {
         if(err1){
           res.status(500).send({message : 'Some Error in processing the script' , status : 500 , data : []})
         }
-        else if(result1 == null)
+        else if(result1[0] == null)
         {
           res.status(400).send({message : 'Plese Kindly Check the Receiver Phone Number' ,statua : 400 ,data : [{sender : result} , {receiver : result1}]})
         }
