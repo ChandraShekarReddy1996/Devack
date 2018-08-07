@@ -7,6 +7,7 @@ var app = express();
 var jsonParser = bodyParser.json();
 
 app.post('/registerMember',jsonParser,(req,res) => {
+  console.log('hello World')
   ctr.registerMember(req,res);
 })
 
