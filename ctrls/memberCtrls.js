@@ -5,13 +5,13 @@ var jwtDecode = require('jwt-decode')
 
 var memberLogin = (req,res) => {
   dbService.find({EmpId : req.EmpId, password: req.password},'members',(err,result) => {
+    console.log('QUERY',result)
     if(err)
     res.status(400).send({message : 'SOme Error Occured While processing the application' ,status : 400 ,data : []});
     else if(result[0] == null)
     res.status(401).send({message : 'Username/Password is incorrect' ,status : 401 , data : []})
     else
     {
-      console.log(result)
       var token = jwt.sign(req,secretKey)
       res.status(200).send({message : 'Sucessful', status : 200 , data : {acces_token : token, name : result[0].firstName, phone:result[0].phone, EmpId : result[0].EmpId}})
     }

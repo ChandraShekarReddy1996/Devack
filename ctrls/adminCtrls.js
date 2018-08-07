@@ -59,6 +59,8 @@ var allocateDevice = (req,res) => {
     dbService.find({EmpId : req.body.EmpId},'members',(err,result) => {
       if(err)
       res.status(404).send({message : 'Some Error Occured While Executing the script',status : 404, data : []})
+      else if(!Object.keys(result).length)
+      res.status(404).send({message : 'Member Not Found', status : 404 , data : []})
       else
       dbService.find({deviceID : req.body.deviceID},'Devices',(err1,result1) => {
         if(err1)
