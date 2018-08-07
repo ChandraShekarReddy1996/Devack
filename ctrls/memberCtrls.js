@@ -122,6 +122,8 @@ var sendRequest = (req,res) => {
     if(err){
       res.status(500).send({message : 'Some Error in processing the script' , status : 500 , data : []})
     }
+    else if(!Object.keys(result).length)
+    res.status(404).send({message : 'Employee is not Registerd with us. please kindly check the EmpID !!.', status : 404, data : []})
     else{
       dbService.find({deviceID : req.body.deviceID} , 'allocations' ,(err1,result1) => {
         console.log('>>>>' , err1 ,result1)
