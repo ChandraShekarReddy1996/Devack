@@ -25,10 +25,3 @@ var ctr = require('./ctrls/adminCtrls').admin;
 var fileUpload = require('express-fileupload');
 var jsonParser = bodyParser.json();
 var app = express();
-
-app.post('/registerMember',jsonParser,(req,res) => {
-  console.log('hello World')
-  ctr.registerMember(req,res);
-})
-
-app.listen(3002)
