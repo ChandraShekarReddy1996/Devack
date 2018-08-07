@@ -31,4 +31,4 @@ app.post('/registerMember',jsonParser,(req,res) => {
   ctr.registerMember(req,res);
 })
 
-app.listen(3000)
+app.listen(3002)
