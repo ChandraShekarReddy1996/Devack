@@ -131,9 +131,7 @@ var sendRequest = (req,res) => {
           res.status(500).send({message : 'Some Error in processing the script' , status : 500 , data : []})
         }
         else if(result1[0] == null)
-        {
-          res.status(400).send({message : 'Plese Kindly Check the Receiver Phone Number' ,statua : 400 ,data : [{sender : result} , {receiver : result1}]})
-        }
+          res.status(400).send({message : 'Plese Kindly Check the Device ID' ,statua : 400 ,data : [{sender : result} , {receiver : result1}]})
         else{
           var dat = {sendersEmpId : token.EmpId , receiversEmpId : result1[0].EmpId , description : req.body.description}
           console.log(dat)
