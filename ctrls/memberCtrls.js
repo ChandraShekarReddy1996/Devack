@@ -4,7 +4,7 @@ var secretKey = 'sfjojojfoa22jsknfkslsjf234o34n';
 var jwtDecode = require('jwt-decode')
 
 var memberLogin = (req,res) => {
-  dbService.find({EmpId : req.EmpId, password: req.password},'members',(err,result) => {
+  dbService.find({Id : req.Id, password: req.password},'members',(err,result) => {
     console.log('QUERY',result)
     if(err)
     res.status(400).send({message : 'SOme Error Occured While processing the application' ,status : 400 ,data : []});
@@ -13,14 +13,14 @@ var memberLogin = (req,res) => {
     else
     {
       var token = jwt.sign(req,secretKey)
-      res.status(200).send({message : 'Sucessful', status : 200 , data : {acces_token : token, name : result[0].firstName, phone:result[0].phone, EmpId : result[0].EmpId}})
+      res.status(200).send({message : 'Sucessful', status : 200 , data : {acces_token : token, name : result[0].firstName, phone:result[0].phone, Id : result[0].Id}})
     }
   })
 }
 
 var getDevices = (req,res) => {
   var token = jwtDecode(req.headers.authorization);
-  dbService.find({EmpId : token.EmpId,password: token.password}, 'members',(err,result) => {
+  dbService.find({Id : token.Id,password: token.password}, 'members',(err,result) => {
     if(err)
     res.status(500).send({message : 'Some Error in processing the script' , status : 200 , data : []})
     else if(result == null)
@@ -117,13 +117,13 @@ var sendPhoto = (req,res) => {
 
 var sendRequest = (req,res) => {
   var token = jwtDecode(req.headers.authorization);
-  dbService.find({EmpId : token.EmpId, password: token.password}, 'members' , (err,result) => {
+  dbService.find({Id : token.Id, password: token.password}, 'members' , (err,result) => {
     console.log('>>>',err,result)
     if(err){
       res.status(500).send({message : 'Some Error in processing the script' , status : 500 , data : []})
     }
     else if(!Object.keys(result).length)
-    res.status(404).send({message : 'Employee is not Registerd with us. please kindly check the EmpID !!.', status : 404, data : []})
+    res.status(404).send({message : 'Employee is not Registerd with us. please kindly check the Id !!.', status : 404, data : []})
     else{
       dbService.find({deviceID : req.body.deviceID} , 'allocations' ,(err1,result1) => {
         console.log('>>>>' , err1 ,result1)
@@ -133,7 +133,7 @@ var sendRequest = (req,res) => {
         else if(result1[0] == null)
           res.status(400).send({message : 'Plese Kindly Check the Device ID' ,statua : 400 ,data : [{sender : result} , {receiver : result1}]})
         else{
-          var dat = {sendersEmpId : token.EmpId , receiversEmpId : result1[0].EmpId , description : req.body.description}
+          var dat = {sendersEmpId : token.Id , receiversEmpId : result1[0].Id , description : req.body.description}
           console.log(dat)
           dbService.create(dat,'pendingRequests')
           res.status(200).send({message : 'sucessful' ,statua : 200 ,data : [{sender : result} , {receiver : result1}]})
@@ -145,20 +145,20 @@ var sendRequest = (req,res) => {
 
 var discardRequest = (req,res) => {
   var token = jwtDecode(req.headers.authorization);
-  dbService.find({EmpId : token.EmpId, password: token.password}, 'members' , (err,result) => {
+  dbService.find({Id : token.Id, password: token.password}, 'members' , (err,result) => {
     //  console.log(">>",err,result)
     if(err){
       res.status(500).send({message : 'Some Error in processing the script' , status : 500 , data : []})
     }
     else{
-      dbService.clear({sendersEmpId : req.body.EmpId , receiversEmpId : token.EmpId}, 'pendingRequests', (err1,result1) => {
+      dbService.clear({sendersEmpId : req.body.Id , receiversEmpId : token.Id}, 'pendingRequests', (err1,result1) => {
         console.log(">>>",err,result1)
         if(err1)
         res.status(400).send({message : 'Some Error Occured Whle Discrading The Request' , status : 400 ,data : []})
         else if(result1 == null)
-        res.status(400).send({message : `No requsts from that ${req.body.EmpId}` , status : 400 ,data : []})
+        res.status(400).send({message : `No requsts from that ${req.body.Id}` , status : 400 ,data : []})
         else
-        res.status(200).send({message:`Discarded the request from the ${req.body.EmpId}` , status : 200 , data : []})
+        res.status(200).send({message:`Discarded the request from the ${req.body.Id}` , status : 200 , data : []})
       })
     }
   })
@@ -166,19 +166,19 @@ var discardRequest = (req,res) => {
 
 var acceptRequest = (req,res) => {
   var token = jwtDecode(req.headers.authorization);
-  dbService.find({EmpId : token.EmpId, password: token.password} , 'members' , (err,result) => {
+  dbService.find({Id : token.Id, password: token.password} , 'members' , (err,result) => {
     if(err)
     res.status(500).send({message : 'Some Error in processing the script' , status : 500 , data : []})
     else{
-      dbService.find({sendersEmpId : req.body.EmpId , receiversEmpId : token.EmpId}, 'pendingRequests', (err1,result1) => {
+      dbService.find({sendersEmpId : req.body.Id , receiversEmpId : token.Id}, 'pendingRequests', (err1,result1) => {
         if(err1){
           res.status(400).send({message : 'Some Error Occured Whle Discrading The Request' , status : 400 ,data : []})
         }
         else if (result1 == null) {
-          res.status(400).send({message : `No requsts from that ${req.body.EmpId} in Pending Requests` , status : 400 ,data : []})
+          res.status(400).send({message : `No requsts from that ${req.body.Id} in Pending Requests` , status : 400 ,data : []})
         }
         else{
-          var dat = {sendersEmpId : req.body.EmpId , receiversEmpId : token.EmpId}
+          var dat = {sendersEmpId : req.body.Id , receiversEmpId : token.Id}
           dbService.create(dat, 'transactions')
           dbService.clear(dat, 'pendingRequests', (err1,result1) => {
             if(err1){
@@ -186,10 +186,10 @@ var acceptRequest = (req,res) => {
             }
             else if(result1 == null)
             {
-              res.status(400).send({message : `No requsts from that ${req.body.EmpId}` , status : 400 ,data : []})
+              res.status(400).send({message : `No requsts from that ${req.body.Id}` , status : 400 ,data : []})
             }
             else{
-              res.status(200).send({message:`Accepted the request from the ${req.body.EmpId}` , status : 200 , data : []})
+              res.status(200).send({message:`Accepted the request from the ${req.body.Id}` , status : 200 , data : []})
             }
           })
         }

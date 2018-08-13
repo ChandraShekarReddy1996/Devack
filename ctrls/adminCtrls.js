@@ -22,7 +22,7 @@ var registerMember = (req,res) => {
           res.status(404).send({message : 'Some Error Occured While Executing the script',status : 404, data : []})
           else
           count += result.length;
-          var dat = {'firstName': req.body.firstName,'LastName':req.body.LastName,'phone':req.body.phone,'email':req.body.email, 'password': req.body.password,'address': req.body.address, 'EmpId' : count, 'department': req.body.department, designation : req.body.designation} ;
+          var dat = {'firstName': req.body.firstName,'LastName':req.body.LastName,'phone':req.body.phone,'email':req.body.email, 'password': req.body.password,'address': req.body.address, 'Id' : count, 'department': req.body.department, designation : req.body.designation} ;
           dbService.create(dat,'members');
           res.status(201).send({message : 'Succesfully created', status: 200, data: dat})
         })
@@ -56,7 +56,7 @@ var addDevices = (req,res) => {
 var allocateDevice = (req,res) => {
   if(adminkey == req.body.passKey)
   {
-    dbService.find({EmpId : req.body.EmpId},'members',(err,result) => {
+    dbService.find({Id : req.body.Id},'members',(err,result) => {
       if(err)
       res.status(404).send({message : 'Some Error Occured While Executing the script',status : 404, data : []})
       else if(!Object.keys(result).length)
@@ -69,7 +69,7 @@ var allocateDevice = (req,res) => {
         res.status(400).send({message : 'Device Not Found',status : 400, data : []})
         else{
           var time = new Date();
-          var dat = {EmpId : req.body.EmpId , deviceID : req.body.deviceID, timeStamp : time}
+          var dat = {Id : req.body.Id , deviceID : req.body.deviceID, timeStamp : time}
           dbService.create(dat,'allocations');
           res.status(200).send({message: 'Sucessfully allocated the device', status: 200, data : {allocationDetails : dat,}})
         }
@@ -82,7 +82,7 @@ var allocateDevice = (req,res) => {
 
 var removemember = (req,res) => {
   if(adminkey == req.body.passKey){
-    dbService.clear({EmpId : req.body.EmpId},'members',(err,result) => {
+    dbService.clear({Id : req.body.Id},'members',(err,result) => {
       if(err)
       res.status(404).send({message : 'Some Error Occured While Executing the script',status : 404, data : []})
       else

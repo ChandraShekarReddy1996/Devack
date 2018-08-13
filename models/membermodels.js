@@ -38,7 +38,7 @@ var membersSchema = new Schema({
     required : true,
     minlength :1
   },
-  EmpId :{
+  Id :{
     type : Number,
     required : true,
     minlength :1
@@ -111,7 +111,7 @@ var transactions = new Schema({
 module.exports = mongoose.model('transactions',transactions);
 
 var allocations = new Schema({
-  EmpId : {
+  Id : {
     type : Number,
     required : true,
     minlength : 10,
